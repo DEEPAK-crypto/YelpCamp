@@ -1,0 +1,30 @@
+<%- include ("../partials/header") %>
+    <div class="container" style="text-align: center;">
+        <div class="media">
+            <img class="align-self-center mr-3" src="<%= campground.image%>">
+            <div class="media-body">
+                <h1>
+                    <%= campground.name %>
+                </h1>
+
+                <p>
+                    <%= campground.description%>
+                </p>
+                <p>
+                    <a class="btn btn-success" href="/campgrounds/<%= campground._id%>/comments/new">Add New Comment</a>
+                </p>
+                <p>
+                    <% campground.comments.forEach(function(comment) { %>
+                        <p>
+                            <strong><%= comment.author %> -</strong>
+                            <%= comment.text %>
+                        </p>
+                        <% }) %>
+                </p>
+            </div>
+        </div>
+
+
+    </div>
+
+    <%- include ("../partials/footer") %>

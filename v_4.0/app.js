@@ -3,6 +3,7 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     mongoose = require('mongoose'),
     Campground = require('./models/campground'),
+    Comment = require("./models/comment"),
     seedDB = require('./seed');
 
 seedDB();
@@ -15,7 +16,7 @@ app.set("view engine", 'ejs');
 
 //Root page
 app.get("/", function(req, res) {
-    res.render('landing');
+    res.render('campgrounds/landing');
 });
 
 //Shows all campgrounds
@@ -24,7 +25,7 @@ app.get("/index", function(req, res) {
         if (err)
             console.log(err);
         else
-            res.render("index", { camp: allcampgrounds });
+            res.render("campgrounds/index", { camp: allcampgrounds });
     })
 
 
@@ -32,7 +33,7 @@ app.get("/index", function(req, res) {
 
 //Display new campground form 
 app.get("/campgrounds/new", function(req, res) {
-    res.render("new");
+    res.render("campgrounds/new");
 });
 
 //Add new campground to the database
@@ -54,8 +55,42 @@ app.get("/campgrounds/:id", function(req, res) {
         if (err)
             console.log(err);
         else
-            res.render("show", { campground: foundCampground });
+            res.render("campgrounds/show", { campground: foundCampground });
     });
 });
+
+// =========================================
+//Comments 
+// =========================================
+
+app.get("/campgrounds/:id/comments/new", function(req, res) {
+    Campground.findById(req.params.id, function(err, campground) {
+        if (err)
+            console.log(err);
+        else
+            res.render("comments/new", { campground: campground });
+    })
+
+})
+
+app.post("/campgrounds/:id/comments", function(req, res) {
+    Campground.findById(req.params.id, function(err, campground) {
+        if (err) {
+            console.log(err);
+            res.redirect("/campgrounds")
+        } else {
+            Comment.create(req.body.comment, function(err, comment) {
+                if (err)
+                    console.log(err);
+                else {
+                    campground.comments.push(comment);
+                    campground.save();
+                    res.redirect('/campgrounds/' + campground._id)
+                }
+            })
+        }
+    })
+
+})
 
 app.listen(3000);
