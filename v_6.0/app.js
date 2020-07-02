@@ -22,8 +22,8 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
-app.use(passport.initialize);
-app.use(passport.session);
+app.use(passport.initialize());
+app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -105,6 +105,12 @@ app.post("/campgrounds/:id/comments", function(req, res) {
         }
     })
 
+})
+
+//Auth routes====================
+
+app.get('/register', function(req, res) {
+    res.render('register');
 })
 
 app.listen(3000);
