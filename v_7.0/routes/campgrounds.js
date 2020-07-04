@@ -36,7 +36,7 @@ router.post("/campgrounds", function(req, res) {
         if (err)
             console.log(err);
     });
-    res.redirect("/index");
+    res.redirect("/campgrounds");
 });
 
 //Shows campground description
