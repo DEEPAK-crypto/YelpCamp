@@ -20,12 +20,8 @@
                                 <%= campground.name %>
                             </a>
                         </h1>
-
                         <p>
                             <%= campground.description%>
-                        </p>
-                        <p>
-                            <em>Submitted By <%= campground.author.username %></em>
                         </p>
                     </div>
                 </div>
@@ -37,7 +33,7 @@
                             <div class="com-md-12">
 
 
-                                <strong><%= comment.author.username %></strong>
+                                <strong><%= comment.author %></strong>
                                 <span class="pull-right">10 days ago</span>
                                 <p>
                                     <%= comment.text %>
