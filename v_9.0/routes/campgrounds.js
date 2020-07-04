@@ -33,14 +33,23 @@ router.get("/campgrounds/:id/edit", function(req, res) {
 });
 //update route
 router.put("/campgrounds/:id", function(req, res) {
-    Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground) {
+        Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground) {
+            if (err)
+                res.redirect('/campgrounds')
+            else
+                res.redirect("/campgrounds/" + req.params.id)
+        })
+    })
+    //Destroy campground route
+router.delete('/campgrounds/:id', function(req, res) {
+    Campground.findByIdAndRemove(req.params.id, function(err) {
         if (err)
             res.redirect('/campgrounds')
         else
-            res.redirect("/campgrounds/" + req.params.id)
+            res.redirect('/campgrounds')
+
     })
 })
-
 
 //Display new campground form 
 router.get("/campgrounds/new", isLoggedIn, function(req, res) {
