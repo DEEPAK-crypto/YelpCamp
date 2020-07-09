@@ -42,6 +42,17 @@ router.put("/campgrounds/:id/comments/:comment_id", function(req, res) {
     })
 })
 
+//Destroy comment
+router.delete('/campgrounds/:id/comments/:comment_id', function(req, res) {
+    Comment.findByIdAndRemove(req.params.comment_id, function(err) {
+        if (err)
+            res.redirect('back')
+        else
+            res.redirect('back')
+
+    })
+})
+
 //Add a new comment request
 router.post("/campgrounds/:id/comments", isLoggedIn, function(req, res) {
     Campground.findById(req.params.id, function(err, campground) {
