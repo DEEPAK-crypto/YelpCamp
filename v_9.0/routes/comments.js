@@ -7,6 +7,8 @@ var Campground = require('../models/campground')
 var Comment = require("../models/comment");
 const campground = require("../models/campground");
 
+
+//Add a new comment form
 router.get("/campgrounds/:id/comments/new", isLoggedIn, function(req, res) {
     Campground.findById(req.params.id, function(err, campground) {
         if (err)
@@ -17,6 +19,7 @@ router.get("/campgrounds/:id/comments/new", isLoggedIn, function(req, res) {
 
 })
 
+//Edit comment form
 router.get("/campgrounds/:id/comments/:comment_id/edit", function(req, res) {
     Comment.findById(req.params.comment_id, function(err, foundComment) {
         if (err)
@@ -27,6 +30,7 @@ router.get("/campgrounds/:id/comments/:comment_id/edit", function(req, res) {
 
 })
 
+//Edit coment request
 router.put("/campgrounds/:id/comments/:comment_id", function(req, res) {
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment) {
         if (err)
@@ -38,6 +42,7 @@ router.put("/campgrounds/:id/comments/:comment_id", function(req, res) {
     })
 })
 
+//Add a new comment request
 router.post("/campgrounds/:id/comments", isLoggedIn, function(req, res) {
     Campground.findById(req.params.id, function(err, campground) {
         if (err) {
@@ -61,6 +66,7 @@ router.post("/campgrounds/:id/comments", isLoggedIn, function(req, res) {
 
 })
 
+//login middleware
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();

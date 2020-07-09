@@ -83,7 +83,9 @@ router.get("/campgrounds/:id", function(req, res) {
     });
 });
 
-//middleware
+//middlewares
+
+//check if a user is logged in
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
@@ -92,6 +94,8 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login")
 }
 
+
+//Check if logged in user is owner
 function checkCampgroundOwnership(req, res, next) {
     if (req.isAuthenticated()) {
 

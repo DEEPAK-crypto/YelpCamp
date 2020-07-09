@@ -39,6 +39,7 @@ app.use(function(req, res, next) {
     next();
 });
 
+//Routes config
 app.use(indexRoutes);
 app.use(campgroundRoutes);
 app.use(commentRoutes);
