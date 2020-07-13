@@ -95,7 +95,7 @@ function isLoggedIn(req, res, next) {
 }
 
 
-//Check if logged in user is owner
+//Check campground ownership
 function checkCampgroundOwnership(req, res, next) {
     if (req.isAuthenticated()) {
 
